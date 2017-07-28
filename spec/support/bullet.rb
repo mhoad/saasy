@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Wrap each test in Bullet API to identify any N+1 queries in testing.
 if Bullet.enable?
   config.before(:each) do
