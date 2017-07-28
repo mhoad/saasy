@@ -27,5 +27,10 @@ module Saasy
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+
+    # Ensure that we automatically generate RSpec tests as required during development
+    config.generators do |g|
+      g.test_framework :rspec, view_specs: false
+    end
   end
 end
