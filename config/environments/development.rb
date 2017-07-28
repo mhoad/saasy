@@ -51,4 +51,15 @@ Rails.application.configure do
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+
+  # Ensure that whenever Bullet identifies an unoptimized query that it logs it
+  # in the following manner: Rails.root/log/bullet.log, the default Rails
+  # logger should also show a warning and finally show details in the
+  # bottom left corner of the page.
+  config.after_initialize do
+    Bullet.enable = true
+    Bullet.bullet_logger = true
+    Bullet.rails_logger = true
+    Bullet.add_footer = true
+  end
 end
