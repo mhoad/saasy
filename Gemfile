@@ -38,6 +38,7 @@ gem 'jbuilder', '~> 2.5'
 
 # Use devise for authentication
 gem 'devise'
+gem 'sidekiq'
 
 group :development, :test do
   # Help identify and kill any N+1 queries

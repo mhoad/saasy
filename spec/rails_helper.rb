@@ -12,6 +12,7 @@ require 'capybara/rspec'
 require 'simplecov'
 require 'email_spec'
 require 'email_spec/rspec'
+require 'sidekiq/testing'
 SimpleCov.start 'rails'
 # Add additional requires below this line. Rails is not loaded until this point!
 

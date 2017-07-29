@@ -12,11 +12,15 @@ development:
   <<: *default
   domain: 'lvh.me'
   redis:
-    url: 'redis://localhost:6379/0'
-    namespace: 'app3_sidekiq'
+    client:
+      url: 'redis://localhost:6379/0'
+    server:
+      url: 'redis://localhost:6379/0'
 test:
   <<: *default
   domain: 'lvh.me'
   redis:
-    url: 'redis://localhost:6379/0'
-    namespace: 'app3_sidekiq'
+    client:
+      url: 'redis://localhost:6379/0'
+    server:
+      url: 'redis://localhost:6379/0'
