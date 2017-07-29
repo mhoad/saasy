@@ -17,8 +17,21 @@
 #
 
 class Account < ApplicationRecord
+  # Make sure the subdomain doesnt have any weird spaces or anything
+  # which could pose an issue when creating a URL or checking
+  # for uniqueness.
+  before_validation do
+    self.subdomain = subdomain.delete(' ') if attribute_present?('subdomain')
+  end
+
   validates :name, presence: true, length: { minimum: 2, maximum: 60 }
   validates :subdomain, presence: true, uniqueness: { case_sensitive: false }, length: { minimum: 2, maximum: 60 }
+  validates_format_of :subdomain, with: /\A[a-zA-Z]+\z/, message: 'only letters are valid subdomains'
+  validates :subdomain, exclusion: {
+    in: %w[www admin about beta billing blog cdn chat cpanel download email
+           search smtp pop mail mobile my news payment porn purchase affiliate],
+    message: '%<value>% is not a valid subdomain.'
+  }
   belongs_to :owner, class_name: 'User'
   accepts_nested_attributes_for :owner
 end

@@ -33,6 +33,13 @@ RSpec.describe Account, type: :model do
     it { expect(account).to validate_presence_of(:subdomain) }
     it { expect(account).to validate_length_of(:subdomain).is_at_least(2).is_at_most(60) }
     it { expect(account).to validate_uniqueness_of(:subdomain).case_insensitive }
+    it 'should not accept invalid subdomains' do
+      invalid_subdomains = %w[admin www 1234 hello1 whats-up]
+      invalid_subdomains.each do |subdomain|
+        account.subdomain = subdomain
+        expect(account).to_not be_valid
+      end
+    end
   end
 
   describe 'Associations' do
