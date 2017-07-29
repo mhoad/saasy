@@ -37,4 +37,9 @@ class User < ApplicationRecord
   def send_welcome_email
     SendWelcomeEmailJob.perform_later(id)
   end
+
+  # Ensure that all devise related mail is correctly handled via ActiveJob
+  def send_devise_notification(notification, *args)
+    devise_mailer.send(notification, self, *args).deliver_later
+  end
 end
