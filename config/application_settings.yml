@@ -1,6 +1,22 @@
-production:
+# This file is where all *NON-SENSITIVE* configuration settings are to be
+# stored. All sensitive information should instead be handled via 
+# Rails encrypted secrets instead via bin/rails secrets:edit
+default: &default
   domain: 'yourcustomdomain.com'
+  application_name: 'Please Change Me'
+  devise:
+    mailer_sender: 'please-change-me@example.com'
+production:
+  <<: *default
 development:
+  <<: *default
   domain: 'lvh.me'
+  redis:
+    url: 'redis://localhost:6379/0'
+    namespace: 'app3_sidekiq'
 test:
+  <<: *default
   domain: 'lvh.me'
+  redis:
+    url: 'redis://localhost:6379/0'
+    namespace: 'app3_sidekiq'

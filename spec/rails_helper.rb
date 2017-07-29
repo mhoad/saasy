@@ -10,6 +10,8 @@ require 'rspec/rails'
 require 'capybara/rails'
 require 'capybara/rspec'
 require 'simplecov'
+require 'email_spec'
+require 'email_spec/rspec'
 SimpleCov.start 'rails'
 # Add additional requires below this line. Rails is not loaded until this point!
 

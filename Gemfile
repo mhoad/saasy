@@ -65,6 +65,7 @@ group :development do
 end
 
 group :test do
+  gem 'email_spec'
   gem 'shoulda-matchers', git: 'https://github.com/thoughtbot/shoulda-matchers.git', branch: 'rails-5'
   gem 'simplecov', require: false
 end

@@ -35,6 +35,8 @@ module Saasy
       g.test_framework :rspec, view_specs: false
     end
 
+    config.active_job.queue_adapter = :sidekiq
+
     config.application_settings = config_for(:application_settings)
   end
 end
