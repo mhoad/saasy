@@ -13,18 +13,27 @@ RSpec.describe 'Accounts', type: :request do
   describe 'POST /accounts' do
     context 'with valid attributes' do
       it 'adds an account' do
-        account_params = FactoryGirl.attributes_for(:account)
+        account_params = { name: 'MyString',
+                           owner_attributes: {
+                             email: 'test@example.com',
+                             password: 'password123',
+                             password_confirmation: 'password123'
+                           } }
+
         expect do
-          post accounts_path, params: {
-            account: account_params
-          }
+          post accounts_path, params: { account: account_params }
         end.to change(Account, :count).by(1)
       end
     end
 
     context 'with invalid attributes' do
       it 'does not add an account' do
-        account_params = FactoryGirl.attributes_for(:account, :invalid)
+        account_params = { name: nil,
+                           owner_attributes: {
+                             email: 'test@example.com',
+                             password: 'password123',
+                             password_confirmation: 'password123'
+                           } }
         expect do
           post accounts_path, params: {
             account: account_params

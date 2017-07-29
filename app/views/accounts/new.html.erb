@@ -12,5 +12,19 @@
     <%= form.label :name %>
     <%= form.text_field :name %>
   </p>
+  <%= form.fields_for :owner do |owner| %>
+    <p>
+      <%= owner.label :email %>
+      <%= owner.text_field :email %>
+    </p>
+    <p>
+      <%= owner.label :password %>
+      <%= owner.password_field :password %>
+    </p>
+    <p>
+      <%= owner.label :password_confirmation %>
+      <%= owner.password_field :password_confirmation %>
+    </p>
+  <% end %>
   <%= form.submit %>
 <% end %>
