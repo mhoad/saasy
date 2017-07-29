@@ -41,7 +41,9 @@ group :development, :test do
   gem 'bullet'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
+  gem 'capybara'
   gem 'factory_girl_rails'
+  gem 'launchy'
   gem 'rspec-rails', '~>3.6.0'
 end
 
@@ -60,6 +62,7 @@ group :development do
 end
 
 group :test do
+  gem 'shoulda-matchers', git: 'https://github.com/thoughtbot/shoulda-matchers.git', branch: 'rails-5'
   gem 'simplecov', require: false
 end
 

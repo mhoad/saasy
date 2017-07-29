@@ -1,0 +1,16 @@
+<h2>Create a new account</h2>
+
+<%= form_for(@account) do |form| %>
+  <% if @account.errors.any? %>
+  <ul>
+    <% @account.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+  </ul>
+  <% end %>
+  <p>
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </p>
+  <%= form.submit %>
+<% end %>
