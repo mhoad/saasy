@@ -1,19 +1,24 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: accounts
 #
 #  id         :integer          not null, primary key
-#  name       :string
+#  name       :string(60)       not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  owner_id   :integer
+#  subdomain  :string(60)       not null
+#
+# Indexes
+#
+#  index_accounts_on_subdomain  (subdomain) UNIQUE
 #
 
 FactoryGirl.define do
   factory :account do
     name 'MyString'
+    subdomain 'test'
     association :owner, factory: :user
 
     trait :invalid do

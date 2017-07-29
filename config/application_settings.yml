@@ -1,0 +1,6 @@
+production:
+  domain: 'yourcustomdomain.com'
+development:
+  domain: 'lvh.me'
+test:
+  domain: 'lvh.me'

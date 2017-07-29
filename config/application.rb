@@ -34,5 +34,7 @@ module Saasy
     config.generators do |g|
       g.test_framework :rspec, view_specs: false
     end
+
+    config.application_settings = config_for(:application_settings)
   end
 end

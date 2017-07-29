@@ -13,7 +13,7 @@ RSpec.describe 'Accounts', type: :request do
   describe 'POST /accounts' do
     context 'with valid attributes' do
       it 'adds an account' do
-        account_params = { name: 'MyString',
+        account_params = { name: 'MyString', subdomain: 'test',
                            owner_attributes: {
                              email: 'test@example.com',
                              password: 'password123',
@@ -28,7 +28,7 @@ RSpec.describe 'Accounts', type: :request do
 
     context 'with invalid attributes' do
       it 'does not add an account' do
-        account_params = { name: nil,
+        account_params = { name: nil, subdomain: 'test',
                            owner_attributes: {
                              email: 'test@example.com',
                              password: 'password123',

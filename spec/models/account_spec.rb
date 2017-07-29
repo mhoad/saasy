@@ -1,14 +1,18 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: accounts
 #
 #  id         :integer          not null, primary key
-#  name       :string
+#  name       :string(60)       not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  owner_id   :integer
+#  subdomain  :string(60)       not null
+#
+# Indexes
+#
+#  index_accounts_on_subdomain  (subdomain) UNIQUE
 #
 
 require 'rails_helper'
@@ -24,7 +28,7 @@ RSpec.describe Account, type: :model do
 
   describe 'ActiveModel validations' do
     it { expect(account).to validate_presence_of(:name) }
-    it { expect(account).to validate_length_of(:name).is_at_least(2).is_at_most(100) }
+    it { expect(account).to validate_length_of(:name).is_at_least(2).is_at_most(60) }
     # it { expect(account).to validate_presence_of(:subdomain) }
     # it { expect(account).to validate_uniqueness_of(:subdomain) }
   end
