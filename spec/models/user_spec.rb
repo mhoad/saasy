@@ -38,6 +38,7 @@ RSpec.describe User, type: :model do
   describe 'ActiveModel validations' do
     it { expect(user).to validate_presence_of(:email) }
     it { expect(user).to validate_presence_of(:password) }
+    it { expect(user).to validate_uniqueness_of(:email).case_insensitive }
   end
 
   describe 'Database columns' do

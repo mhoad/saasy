@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: accounts
@@ -17,6 +18,7 @@
 
 class Account < ApplicationRecord
   validates :name, presence: true, length: { minimum: 2, maximum: 60 }
+  validates :subdomain, presence: true, uniqueness: { case_sensitive: false }, length: { minimum: 2, maximum: 60 }
   belongs_to :owner, class_name: 'User'
   accepts_nested_attributes_for :owner
 end
