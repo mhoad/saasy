@@ -27,6 +27,15 @@ Rails.application.routes.draw do
     put 'users', to: 'devise/registrations#update', as: :user_registration
     get 'users/cancel', to: 'devise/registrations#cancel', as: :cancel_user_registration
   end
+
+  # Show a different root path if the user is viewing the application from an
+  # account subdomain using a routing constraint.
+  constraints(SubdomainRequired) do
+    scope module: 'accounts' do
+      root to: 'projects#index', as: :account_root
+    end
+  end
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root to: 'home#index'
 
