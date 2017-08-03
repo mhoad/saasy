@@ -7,7 +7,6 @@ module Accounts
 
     def index
       @projects = current_account.projects
-      # @projects = Project.all
     end
 
     def new
@@ -18,7 +17,7 @@ module Accounts
       @project = current_account.projects.build(project_params)
       if @project.save
         flash[:notice] = 'Project was successfully created.'
-        redirect_to(@project)
+        redirect_to project_path(@project)
       else
         render 'new'
       end
@@ -31,7 +30,7 @@ module Accounts
     def update
       if @project.update(project_params)
         flash[:notice] = 'Successfully updated project.'
-        redirect_to @project
+        redirect_to project_path(@project)
       else
         flash[:alert] = 'Error updating project.'
         render :edit
