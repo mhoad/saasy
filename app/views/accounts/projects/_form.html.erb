@@ -1,0 +1,19 @@
+<% if @project.errors.any? %>
+  <ul>
+    <% @project.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<%= form_for(@project) do |project| %>
+  <p>
+    <%= project.label :name %><br>
+    <%= project.text_field :name %>
+  </p>
+  <p>
+    <%= project.label :description %><br>
+    <%= project.text_field :description %>
+  </p>
+  <%= project.submit %>
+<% end %>

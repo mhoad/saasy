@@ -1,0 +1,9 @@
+<h1>Projects</h1>
+<% if owner? %>
+  <ul>
+    <li><%= link_to 'Add Project', new_project_path %></li>
+  </ul>
+<% end %>
+<% @projects.each do |project| %>
+  <%= link_to project.name, project_path(project) %>
+<% end %>

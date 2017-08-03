@@ -16,6 +16,8 @@
 #             accounts POST   /accounts(.:format)            accounts#create
 #
 
+require 'constraints/subdomain_required'
+
 Rails.application.routes.draw do
   # Users shouldn't be able to just sign up like you might normally do.
   # It should only ever be in the context of an account. So we have
@@ -33,6 +35,7 @@ Rails.application.routes.draw do
   constraints(SubdomainRequired) do
     scope module: 'accounts' do
       root to: 'projects#index', as: :account_root
+      resources :projects
     end
   end
 

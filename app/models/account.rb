@@ -32,6 +32,7 @@ class Account < ApplicationRecord
            search smtp pop mail mobile my news payment porn purchase affiliate],
     message: '%<value>% is not a valid subdomain.'
   }
+  has_many :projects
   belongs_to :owner, class_name: 'User'
   accepts_nested_attributes_for :owner
 end

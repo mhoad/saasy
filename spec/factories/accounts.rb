@@ -18,8 +18,8 @@
 
 FactoryGirl.define do
   factory :account do
-    name 'MyString'
-    subdomain 'test'
+    name { Faker::Company.name }
+    subdomain { Faker::Internet.domain_word }
     association :owner, factory: :user
 
     trait :invalid do
