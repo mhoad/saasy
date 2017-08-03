@@ -66,5 +66,5 @@ Rails.application.configure do
   end
 
   # Ensure that action mailer works as expected in development
-  config.action_mailer.default_url_options = { host: 'lvh.me', port: 3000 }
+  config.action_mailer.default_url_options = { host: 'lvh.me' }
 end
