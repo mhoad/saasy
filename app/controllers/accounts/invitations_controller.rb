@@ -9,7 +9,7 @@ module Accounts
     include AccountAuthentication
     before_action :authorize_owner!, except: %i[accept accepted]
     skip_before_action :authenticate_user!, only: %i[accept accepted]
-    # skip_before_action :authorize_user!, only: %i[accept accepted]
+    skip_before_action :authorize_user!, only: %i[accept accepted]
 
     def new
       @invitation = Invitation.new
@@ -42,12 +42,6 @@ module Accounts
 
     def invitation_params
       params.require(:invitation).permit(:email)
-    end
-
-    def authorize_owner!
-      return if owner?
-      flash[:alert] = 'Only the account owner can do that.'
-      redirect_to root_url(subdomain: current_account.subdomain)
     end
 
     def signup_new_user
