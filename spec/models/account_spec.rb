@@ -44,8 +44,8 @@ RSpec.describe Account, type: :model do
 
   describe 'Associations' do
     it { expect(account).to belong_to(:owner) }
-    # it { expect(account).to have_many(:invitations) }
-    # it { expect(account).to have_many(:widgets) }
+    it { expect(account).to have_many(:invitations) }
+    it { expect(account).to have_many(:projects) }
   end
 
   describe 'Database columns' do

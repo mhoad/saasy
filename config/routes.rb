@@ -12,6 +12,8 @@
 #                      PUT    /users/password(.:format)      devise/passwords#update
 #                      POST   /users/password(.:format)      devise/passwords#create
 #         account_root GET    /                              accounts/projects#index
+#          invitations POST   /invitations(.:format)         accounts/invitations#create
+#       new_invitation GET    /invitations/new(.:format)     accounts/invitations#new
 #             projects GET    /projects(.:format)            accounts/projects#index
 #                      POST   /projects(.:format)            accounts/projects#create
 #          new_project GET    /projects/new(.:format)        accounts/projects#new
@@ -44,6 +46,12 @@ Rails.application.routes.draw do
   constraints(SubdomainRequired) do
     scope module: 'accounts' do
       root to: 'projects#index', as: :account_root
+      resources :invitations, only: %i[new create] do
+        member do
+          get :accept
+          patch :accepted
+        end
+      end
       resources :projects
     end
   end

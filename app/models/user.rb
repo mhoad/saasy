@@ -32,6 +32,17 @@ class User < ApplicationRecord
 
   after_create :send_welcome_email
 
+  has_many :memberships
+  has_many :accounts, through: :memberships
+
+  def owned_accounts
+    Account.where(owner: self)
+  end
+
+  def all_accounts
+    owned_accounts + accounts
+  end
+
   private
 
   def send_welcome_email

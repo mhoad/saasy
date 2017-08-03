@@ -1,0 +1,11 @@
+<% if @invitation.errors.any? %>
+  <ul>
+    <% @invitation.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<%= form_for([:accepted, @invitation], as: :user) do |f| %>
+  <%= f.submit "Accept Invitation" %>
+<% end %>

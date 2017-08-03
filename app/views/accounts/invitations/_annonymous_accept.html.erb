@@ -1,0 +1,32 @@
+<p>
+  <%= link_to "Sign in as an existing user", new_user_session_path %>
+</p>
+<hr>
+<p>
+  <h3>Sign up as a new user</h3>
+</p>
+
+<% if @invitation.errors.any? %>
+  <ul>
+    <% @invitation.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<%= form_for([:accepted, @invitation], as: :user) do |f| %>
+  <p>
+    <%= f.label :email %><br>
+    <%= f.email_field :email, value: @invitation.email %>
+  </p>
+  <p>
+    <%= f.label :password %><br>
+    <%= f.password_field :password %>
+  </p>
+  <p>
+    <%= f.label :password_confirmation %><br>
+    <%= f.password_field :password_confirmation %>
+  </p>
+  <%= f.submit "Accept Invitation" %>
+
+<% end %>

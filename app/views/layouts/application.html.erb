@@ -13,11 +13,20 @@
       <div class="alert alert-<%= key %>"><%= value %></div>
     <% end %>
     
+    <%= link_to root_url(subdomain: nil) do %> 
+      <strong><%= Rails.configuration.application_settings['application_name'] %></strong>
+    <% end %> |
+
+    <% if current_account %>
+      <%= link_to root_url(subdomain: current_account.subdomain) do %>
+        <strong><%= current_account.name %></strong>
+      <% end %>|
+    <% end %>
     <% if user_signed_in? %>
       Signed in as <%= current_user.email %>
-      <%= link_to  "Sign out", destroy_user_session_path, method: :delete %>
+      <%= link_to "Sign out", destroy_user_session_path, method: :delete %>
     <% else %>
-      <%= link_to  "Sign in", new_user_session_path %>
+      <%= link_to "Sign in", new_user_session_path %>
     <% end %>
     
     <%= yield %>

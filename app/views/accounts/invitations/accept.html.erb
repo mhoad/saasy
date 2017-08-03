@@ -1,0 +1,9 @@
+<h2>Accept Invitation</h2>
+
+You are accepting an invitation to join the <%= @invitation.account.name %> account.
+
+<% if !user_signed_in? %>
+  <%= render 'annonymous_accept', invitation: @invitation %>
+<% else %>
+  <%= render 'user_accept', invitation: @invitation %>
+<% end %>

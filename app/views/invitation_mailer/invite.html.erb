@@ -1,0 +1,9 @@
+<p>
+  You have been invited to join the <%= @invitation.account_name %> account
+  on <%= Rails.configuration.application_settings['application_name'] %>
+</p>
+<p>
+  <% accept_url = accept_invitation_url(@invitation, 
+  subdomain: @invitation.account_subdomain) %>
+  <%= link_to "Accept Invitation", accept_url %>
+</p>

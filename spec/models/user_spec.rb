@@ -41,6 +41,10 @@ RSpec.describe User, type: :model do
     it { expect(user).to validate_uniqueness_of(:email).case_insensitive }
   end
 
+  describe 'Associations' do
+    it { expect(user).to have_many(:memberships) }
+  end
+
   describe 'Database columns' do
     it { expect(user).to have_db_index(:email).unique(:true) }
   end
