@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 module Accounts
+  # Projects are the first thing that a user would create in their new account
+  # they are used for various things like a company may want to run tests on
+  # both their website and their mobile app so they would create
+  # separate projects for each of those instances.
   class ProjectsController < ApplicationController
     include AccountAuthentication
     before_action :find_project, only: %i[edit update show destroy]

@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+# Naturally many of the various resources which are scoped to accounts all need
+# to be appropriately locked down in order to ensure that unauthorized users
+# can not access them. This is where those concerns live
 module AccountAuthentication
   extend ActiveSupport::Concern
 

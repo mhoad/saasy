@@ -20,6 +20,10 @@
 #  fk_rails_...  (account_id => accounts.id)
 #
 
+# Projects are the first thing that a user would create in their new account
+# they are used for various things like a company may want to run tests on
+# both their website and their mobile app so they would create
+# separate projects for each of those instances.
 class Project < ApplicationRecord
   validates :name, presence: true, length: { minimum: 2, maximum: 240 }
   validates :description, length: { minimum: 2, maximum: 240 }
