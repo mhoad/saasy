@@ -44,7 +44,7 @@ module Accounts
     def destroy
       if @project.destroy
         flash[:notice] = 'Successfully deleted project.'
-        redirect_to project_path
+        redirect_to projects_path
       else
         flash[:alert] = 'Error deleting project'
       end
