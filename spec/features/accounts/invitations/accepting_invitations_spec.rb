@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.feature 'Adding widgets', type: :feature do
+RSpec.feature 'Accepting Invitations', type: :feature do
   let(:account) { FactoryGirl.create(:account) }
   let(:invitation) do
     Invitation.create(
