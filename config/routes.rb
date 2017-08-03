@@ -11,6 +11,15 @@
 #        user_password PATCH  /users/password(.:format)      devise/passwords#update
 #                      PUT    /users/password(.:format)      devise/passwords#update
 #                      POST   /users/password(.:format)      devise/passwords#create
+#         account_root GET    /                              accounts/projects#index
+#             projects GET    /projects(.:format)            accounts/projects#index
+#                      POST   /projects(.:format)            accounts/projects#create
+#          new_project GET    /projects/new(.:format)        accounts/projects#new
+#         edit_project GET    /projects/:id/edit(.:format)   accounts/projects#edit
+#              project GET    /projects/:id(.:format)        accounts/projects#show
+#                      PATCH  /projects/:id(.:format)        accounts/projects#update
+#                      PUT    /projects/:id(.:format)        accounts/projects#update
+#                      DELETE /projects/:id(.:format)        accounts/projects#destroy
 #                 root GET    /                              home#index
 #          new_account GET    /accounts/new(.:format)        accounts#new
 #             accounts POST   /accounts(.:format)            accounts#create
