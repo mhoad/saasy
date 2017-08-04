@@ -20,7 +20,7 @@ RSpec.describe InvitationEmailJob, type: :job do
   end
 
   describe '.perform_later' do
-    it 'adds the job to the queue :user_invites' do
+    it 'adds the job to the queue :mailers' do
       allow(InvitationMailer).to receive_message_chain(:invite, :deliver_now)
       InvitationEmailJob.perform_later(1)
       expect(enqueued_jobs.last[:job]).to eq InvitationEmailJob

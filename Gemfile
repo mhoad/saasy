@@ -38,7 +38,9 @@ gem 'jbuilder', '~> 2.5'
 
 # Use devise for authentication
 gem 'devise'
+gem 'money-rails'
 gem 'sidekiq'
+gem 'stripe', '~>3.2.0'
 
 group :development, :test do
   # Help identify and kill any N+1 queries
