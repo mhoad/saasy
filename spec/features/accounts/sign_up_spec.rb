@@ -3,18 +3,30 @@
 require 'rails_helper'
 
 RSpec.feature 'Accounts', type: :feature do
+  let!(:plan) { FactoryGirl.create(:plan, name: 'Starter', stripe_id: 'starter') }
+
   scenario 'creating an account' do
+    set_default_host
     visit root_path
     click_link 'Create an account'
     sign_up(name: 'test', subdomain: 'test', email: 'test@example.com', password: 'password')
     perform_enqueued_jobs do
-      click_button 'Create Account'
+      click_button 'Next'
     end
 
+    account = Account.last
+    expect(account.stripe_customer_id).to be_present
+    expect(page.current_url).to eq(choose_plan_url(subdomain: account.subdomain))
+    choose 'Starter'
+
+    click_button 'Finish'
     within('.alert') do
       success_message = 'Your account has been created.'
       expect(page).to have_content(success_message)
     end
+
+    account.reload
+    expect(account.plan).to eq(plan)
 
     expect(page).to have_content('Signed in as test@example.com')
     expect(page.current_url).to eq('http://test.lvh.me/')
@@ -25,12 +37,12 @@ RSpec.feature 'Accounts', type: :feature do
 
   scenario 'ensure subdomain uniqueness' do
     owner = User.create!(email: 'owner@example.com', password: 'password')
-    Account.create!(subdomain: 'test', name: 'test', owner: owner)
+    FactoryGirl.create(:account, subdomain: 'test', name: 'test', owner: owner)
 
     visit root_path
     click_link 'Create an account'
     sign_up(name: 'test', subdomain: 'test', email: 'user@example.com', password: 'password')
-    click_button 'Create Account'
+    click_button 'Next'
 
     expect(page.current_url).to eq('http://lvh.me/accounts')
     expect(page).to have_content('Sorry, your account could not be created.')

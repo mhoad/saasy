@@ -46,6 +46,8 @@ Rails.application.routes.draw do
   constraints(SubdomainRequired) do
     scope module: 'accounts' do
       root to: 'projects#index', as: :account_root
+      get '/account/choose_plan', to: 'plans#choose', as: :choose_plan
+      patch '/account/choose_plan', to: 'plans#chosen'
       resources :invitations, only: %i[new create] do
         member do
           get :accept

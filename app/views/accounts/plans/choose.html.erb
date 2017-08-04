@@ -1,0 +1,12 @@
+<h2>Choose a Plan</h2>
+<em>Plans are billed monthly</em>
+
+<%= form_for(current_account, url: choose_plan_url) do |account| %>
+  <% @plans.each do |plan| %>
+    
+    <%= account.radio_button :plan, plan.id %>
+    <%= account.label "plan_#{plan.id}", plan.name %>
+    <%= humanized_money_with_symbol(plan.amount_cents) %> <br>
+  <% end %>
+  <%= account.submit 'Finish' %>
+<% end %>

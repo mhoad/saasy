@@ -4,16 +4,23 @@
 #
 # Table name: accounts
 #
-#  id         :integer          not null, primary key
-#  name       :string(60)       not null
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  owner_id   :integer
-#  subdomain  :string(60)       not null
+#  id                 :integer          not null, primary key
+#  name               :string(60)       not null
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  owner_id           :integer
+#  subdomain          :string(60)       not null
+#  stripe_customer_id :string
+#  plan_id            :integer
 #
 # Indexes
 #
+#  index_accounts_on_plan_id    (plan_id)
 #  index_accounts_on_subdomain  (subdomain) UNIQUE
+#
+# Foreign Keys
+#
+#  fk_rails_...  (plan_id => plans.id)
 #
 
 class Account < ApplicationRecord
@@ -37,6 +44,7 @@ class Account < ApplicationRecord
   has_many :invitations
   has_many :memberships
   has_many :users, through: :memberships
+  belongs_to :plan, optional: true
 
   belongs_to :owner, class_name: 'User'
   accepts_nested_attributes_for :owner
