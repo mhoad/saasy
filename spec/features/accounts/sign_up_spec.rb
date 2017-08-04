@@ -44,6 +44,7 @@ RSpec.feature 'Accounts', type: :feature do
 
     account.reload
     expect(account.plan).to eq(plan)
+    expect(account.stripe_subscription_id).to be_present
 
     expect(page).to have_content('Signed in as test@example.com')
     expect(page.current_url).to eq(root_url(subdomain: account.subdomain))

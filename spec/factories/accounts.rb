@@ -4,14 +4,15 @@
 #
 # Table name: accounts
 #
-#  id                 :integer          not null, primary key
-#  name               :string(60)       not null
-#  created_at         :datetime         not null
-#  updated_at         :datetime         not null
-#  owner_id           :integer
-#  subdomain          :string(60)       not null
-#  stripe_customer_id :string
-#  plan_id            :integer
+#  id                     :integer          not null, primary key
+#  name                   :string(60)       not null
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
+#  owner_id               :integer
+#  subdomain              :string(60)       not null
+#  stripe_customer_id     :string
+#  plan_id                :integer
+#  stripe_subscription_id :string
 #
 # Indexes
 #

@@ -9,10 +9,24 @@ module Accounts
     end
 
     def chosen
-      current_account.plan_id = params[:account][:plan]
-      current_account.save
+      create_stripe_subscription(current_account)
       flash[:notice] = 'Your account has been created.'
       redirect_to root_url(subdomain: current_account.subdomain)
+    end
+
+    private
+
+    def create_stripe_subscription(account)
+      customer = Stripe::Customer.retrieve(account.stripe_customer_id)
+      plan = Plan.find(params[:account][:plan])
+      subscription = customer.subscriptions.create(
+        plan: plan.stripe_id,
+        source: params[:token]
+      )
+
+      account.plan = plan
+      account.stripe_subscription_id = subscription.id
+      account.save
     end
   end
 end
