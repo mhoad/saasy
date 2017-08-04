@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Projects', type: :request do
-  let(:account) { FactoryGirl.create(:account) }
+  let!(:account) { FactoryGirl.create(:account) }
   let!(:project) { FactoryGirl.create(:project, account: account) }
 
   context 'as an authenticated user' do

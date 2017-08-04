@@ -29,10 +29,13 @@ FactoryGirl.define do
     name { Faker::Company.name }
     subdomain { Faker::Internet.domain_word }
     association :owner, factory: :user
+    stripe_customer_id '123ABC'
+    stripe_subscription_id 'ABC123'
     plan
 
     trait :invalid do
-      plan nil
+      stripe_subscription_id nil
+      stripe_customer_id nil
     end
   end
 end

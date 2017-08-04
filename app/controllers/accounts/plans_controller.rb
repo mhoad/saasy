@@ -3,6 +3,7 @@
 module Accounts
   class PlansController < ApplicationController
     include AccountAuthentication
+    skip_before_action :subscription_required!
 
     def choose
       @plans = Plan.order(:amount_cents)
