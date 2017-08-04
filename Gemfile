@@ -72,6 +72,9 @@ group :test do
   gem 'email_spec'
   gem 'shoulda-matchers', git: 'https://github.com/thoughtbot/shoulda-matchers.git', branch: 'rails-5'
   gem 'simplecov', require: false
+  # gem 'selenium-webdriver'
+  gem 'chromedriver-helper'
+  gem 'capybara-selenium'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
