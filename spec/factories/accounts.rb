@@ -31,7 +31,7 @@ FactoryGirl.define do
     plan
 
     trait :invalid do
-      name nil
+      plan nil
     end
   end
 end

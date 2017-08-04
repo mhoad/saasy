@@ -1,12 +1,15 @@
+<script src="https://checkout.stripe.com/checkout.js"></script>
 <h2>Choose a Plan</h2>
 <em>Plans are billed monthly</em>
-
 <%= form_for(current_account, url: choose_plan_url) do |account| %>
   <% @plans.each do |plan| %>
     
-    <%= account.radio_button :plan, plan.id %>
+    <%= account.radio_button :plan, plan.id, data: {
+      name: plan.name, amount: plan.amount_cents, currency: plan.amount_currency.downcase
+    } %>
     <%= account.label "plan_#{plan.id}", plan.name %>
     <%= humanized_money_with_symbol(plan.amount_cents) %> <br>
   <% end %>
-  <%= account.submit 'Finish' %>
+  <%= account.submit 'Pay', id: 'checkout-btn' %>
 <% end %>
+<%= javascript_include_tag 'accounts/plans' %>

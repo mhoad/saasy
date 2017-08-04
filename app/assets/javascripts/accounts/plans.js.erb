@@ -1,0 +1,39 @@
+if (typeof(StripeCheckout) === 'object') {
+  var handler = StripeCheckout.configure({
+    key: '<%= Rails.application.secrets.stripe[:publishable_key] %>',
+    image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
+    locale: 'auto',
+    token: function(token) {
+      // You can access the token ID with `token.id`.
+      // Get the token ID to your server-side code for use.
+      var token_field = document.createElement("input");
+      token_field.setAttribute("type", "hidden");
+      token_field.setAttribute("name", "token");
+      token_field.setAttribute("value", token.id);
+      document.getElementsByTagName('form')[0].appendChild(token_field);
+      document.getElementsByTagName('form')[0].submit();
+    }
+  });
+
+  document.getElementById('checkout-btn').addEventListener('click', function(e) {
+    // Get the plan that the user selected
+    selectedPlan = Array.prototype.filter.call(e.target.parentNode.children, function(child){
+      if (child.checked === true) {
+        return child;
+      }
+    });
+    // Open Checkout with further options:
+    handler.open({
+      name: '<%= Rails.configuration.application_settings['application_name'] %>',
+      description: selectedPlan[0].dataset.name + ' Plan',
+      currency: selectedPlan[0].dataset.currency,
+      amount: parseInt(selectedPlan[0].dataset.amount)
+    });
+    e.preventDefault();
+  });
+
+  // Close Checkout on page navigation:
+  window.addEventListener('popstate', function() {
+    handler.close();
+  });
+}

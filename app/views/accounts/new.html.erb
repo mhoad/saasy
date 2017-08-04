@@ -1,3 +1,4 @@
+<script src="https://checkout.stripe.com/checkout.js"></script>
 <h2>Create a new account</h2>
 
 <%= form_for(@account) do |form| %>
@@ -32,3 +33,5 @@
   <% end %>
   <%= form.submit "Next" %>
 <% end %>
+
+<%= javascript_include_tag 'accounts/plans', 'data-turbolinks-track': 'reload' %>

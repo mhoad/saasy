@@ -18,8 +18,7 @@ RSpec.feature 'Accounts', type: :feature do
     expect(account.stripe_customer_id).to be_present
     expect(page.current_url).to eq(choose_plan_url(subdomain: account.subdomain))
     choose 'Starter'
-
-    click_button 'Finish'
+    click_button 'Pay'
     within('.alert') do
       success_message = 'Your account has been created.'
       expect(page).to have_content(success_message)
