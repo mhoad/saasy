@@ -48,6 +48,7 @@ Rails.application.routes.draw do
       root to: 'projects#index', as: :account_root
       get '/account/choose_plan', to: 'plans#choose', as: :choose_plan
       patch '/account/choose_plan', to: 'plans#chosen'
+      delete '/account/cancel', to: 'plans#cancel', as: :cancel_subscription
       resources :invitations, only: %i[new create] do
         member do
           get :accept
