@@ -13,10 +13,10 @@ module SubdomainHelpers
     Capybara.always_include_port = true
     default_url_options[:host] = 'lvh.me'
 
-    if Capybara.current_session.server
-      port = Capybara.current_session.server.port
-      default_url_options[:port] = port
-    end
+    return unless Capybara.current_session.server
+
+    port = Capybara.current_session.server.port
+    default_url_options[:port] = port
   end
 end
 

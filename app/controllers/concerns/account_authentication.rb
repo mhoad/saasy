@@ -40,12 +40,9 @@ module AccountAuthentication
   end
 
   def subscription_required!
-    return unless owner?
-
-    if current_account.stripe_customer_id.blank?
-      message = 'You must subscribe to a plan before you can use your account.'
-      flash[:alert] = message
-      redirect_to choose_plan_url
-    end
+    return unless owner? && current_account.stripe_customer_id.blank?
+    message = 'You must subscribe to a plan before you can use your account.'
+    flash[:alert] = message
+    redirect_to choose_plan_url
   end
 end

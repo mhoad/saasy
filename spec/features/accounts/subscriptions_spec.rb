@@ -29,8 +29,6 @@ RSpec.feature 'Subscriptions', type: :feature do
   end
 
   scenario 'can be cancelled' do
-    old_subscription_id = account.stripe_subscription_id
-
     visit root_url
     click_link 'Change Plan'
     click_link 'Cancel your subscription'

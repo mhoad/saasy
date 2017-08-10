@@ -20,7 +20,6 @@
 #  fk_rails_...  (account_id => accounts.id)
 #  fk_rails_...  (user_id => users.id)
 #
-
 class Membership < ApplicationRecord
   validates :account, presence: true
   validates :user, presence: true

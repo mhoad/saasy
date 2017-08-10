@@ -1,6 +1,11 @@
 # frozen_string_literal: true
 
 module Accounts
+  # Each account will have a subscription to one of the 'plans' on offer.
+  # These plans are created in Stripe and stored locally through the
+  # plan fetcher. Users can select a plan, cancel an existing plan or
+  # switch between various plan options which will then need to be
+  # reflected both locally and in Stripe itself
   class PlansController < ApplicationController
     include AccountAuthentication
     skip_before_action :subscription_required!
@@ -18,11 +23,12 @@ module Accounts
     def cancel
       customer = Stripe::Customer.retrieve(current_account.stripe_customer_id)
       subscription = customer.subscriptions.retrieve(current_account.stripe_subscription_id).delete
-      if subscription.status == 'canceled'
-        current_account.update_column(:stripe_subscription_id, nil)
-        flash[:notice] = 'Your subscription has been cancelled.'
-        redirect_to root_url(subdomain: nil)
-      end
+
+      return unless subscription.status == 'canceled'
+
+      current_account.update_column(:stripe_subscription_id, nil)
+      flash[:notice] = 'Your subscription has been cancelled.'
+      redirect_to root_url(subdomain: nil)
     end
 
     def switch

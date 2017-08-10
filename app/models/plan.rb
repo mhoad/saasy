@@ -19,7 +19,6 @@
 #
 #  index_plans_on_stripe_id  (stripe_id)
 #
-
 class Plan < ApplicationRecord
   validates :amount_cents, presence: true
   validates :amount_currency, presence: true
