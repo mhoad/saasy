@@ -1,0 +1,23 @@
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Price</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @plans.each do |plan| %>
+      <tr>
+        <td><%= plan.name %></td>
+        <td><%= humanized_money_with_symbol(plan.amount_cents/100) %></td>
+        <td>
+          <%= form_tag switch_plan_path, method: :put do %>
+            <%= hidden_field_tag :plan_id, plan.id %>
+            <%= submit_tag 'Switch', id: "choose_#{plan.name.underscore}" %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

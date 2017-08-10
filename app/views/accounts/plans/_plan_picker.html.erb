@@ -1,0 +1,10 @@
+<%= form_for(current_account, url: choose_plan_url) do |account| %>
+  <% @plans.each do |plan| %>
+    <%= account.radio_button :plan, plan.id, data: {
+      name: plan.name, amount: plan.amount_cents, currency: plan.amount_currency.downcase
+    } %>
+    <%= account.label "plan_#{plan.id}", plan.name %>
+    <%= humanized_money_with_symbol(plan.amount_cents/100) %> <br>
+  <% end %>
+  <%= account.submit 'Pay', id: 'checkout-btn' %>
+<% end %>

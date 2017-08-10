@@ -41,7 +41,25 @@ RSpec.feature 'Subscriptions', type: :feature do
     account.reload
     expect(account.stripe_subscription_id).to be_blank
     active_subscriptions = customer.subscriptions.all
-    # byebug
     expect(active_subscriptions.data.blank?).to be true
+  end
+
+  scenario 'can be updated' do
+    silver_plan = FactoryGirl.create(:plan, name: 'Silver', stripe_id: 'silver')
+
+    visit root_url
+    click_link 'Change Plan'
+    click_button 'choose_silver'
+
+    customer = Stripe::Customer.retrieve(account.stripe_customer_id)
+    subscription = customer.subscriptions.retrieve(account.stripe_subscription_id)
+    expect(subscription.plan.id).to eq(silver_plan.stripe_id)
+
+    account.reload
+    expect(account.plan).to eq(silver_plan)
+
+    within('.alert') do
+      expect(page).to have_content('You have changed to the Silver plan')
+    end
   end
 end
