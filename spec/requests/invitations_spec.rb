@@ -7,7 +7,7 @@ RSpec.describe 'Invitations', type: :request do
 
   context 'as an authenticated user' do
     context 'with valid attributes' do
-      it 'creates an invitations' do
+      it 'creates an invitation' do
         invitation_params = { email: 'test@example.com', account: account.id }
         sign_in account.owner
         expect do
