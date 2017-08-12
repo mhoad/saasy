@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Projects', type: :request do
+RSpec.describe 'Invitations', type: :request do
   let(:account) { FactoryGirl.create(:account) }
 
   context 'as an authenticated user' do
