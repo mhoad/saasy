@@ -28,5 +28,6 @@ FactoryGirl.define do
     live false
     billing_cycle 'month'
     stripe_id 'myplan'
+    projects_allowed 5
   end
 end

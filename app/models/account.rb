@@ -53,4 +53,11 @@ class Account < ApplicationRecord
   def subscribed?
     stripe_subscription_id.present?
   end
+
+  # Check if an account is over the limit for any of the resources
+  # associated with a given plan
+  def over_limit_for?(plan)
+    return true if projects.count > plan.projects_allowed
+    false
+  end
 end

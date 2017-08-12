@@ -33,6 +33,8 @@ module Accounts
 
     def switch
       plan = Plan.find(params[:plan_id])
+      return if exceed_limitations?(plan)
+
       update_customer_plan(plan)
 
       flash[:notice] = "You have changed to the #{plan.name} plan."
@@ -69,6 +71,18 @@ module Accounts
       subscription.save
 
       current_account.update_column(:plan_id, plan.id)
+    end
+
+    # Check if an account is over the assigned limit for any of the
+    # resources associated with a given plan
+    def exceed_limitations?(plan)
+      if current_account.over_limit_for?(plan)
+        message = "You cannot switch to that plan. Your account is over that plan's limit."
+        flash[:alert] = message
+        redirect_to choose_plan_path
+      else
+        false
+      end
     end
   end
 end
