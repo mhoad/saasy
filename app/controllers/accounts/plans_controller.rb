@@ -33,19 +33,21 @@ module Accounts
 
     def switch
       plan = Plan.find(params[:plan_id])
-      customer = Stripe::Customer.retrieve(current_account.stripe_customer_id)
-      subscription = customer.subscriptions.retrieve(current_account.stripe_subscription_id)
-      subscription.plan = plan.stripe_id
-      subscription.save
-
-      current_account.update_column(:plan_id, plan.id)
+      update_customer_plan(plan)
 
       flash[:notice] = "You have changed to the #{plan.name} plan."
-      redirect_to root_url
+
+      # If the user was trying to do another action such as adding a new
+      # project when they were sent here we should return them to that after
+      # they have successfully upgraded. Otherwise if they are just signing
+      # up for a new account we should send them to the root_url instead.
+      return_to = session.delete(:return_to)
+      redirect_to return_to || root_url
     end
 
     private
 
+    # Create a new Stripe subscription for a given account
     def create_stripe_subscription(account)
       customer = Stripe::Customer.retrieve(account.stripe_customer_id)
       plan = Plan.find(params[:account][:plan])
@@ -57,6 +59,16 @@ module Accounts
       account.plan = plan
       account.stripe_subscription_id = subscription.id
       account.save
+    end
+
+    # Update the current accounts subscription to whatever plan is specified
+    def update_customer_plan(plan)
+      customer = Stripe::Customer.retrieve(current_account.stripe_customer_id)
+      subscription = customer.subscriptions.retrieve(current_account.stripe_subscription_id)
+      subscription.plan = plan.stripe_id
+      subscription.save
+
+      current_account.update_column(:plan_id, plan.id)
     end
   end
 end

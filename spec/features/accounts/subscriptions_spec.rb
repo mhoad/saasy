@@ -60,4 +60,29 @@ RSpec.feature 'Subscriptions', type: :feature do
       expect(page).to have_content('You have changed to the Silver plan')
     end
   end
+
+  scenario 'is prompted to upgrade plan when over limit' do
+    starter_plan = FactoryGirl.create(:plan, name: 'Starter', stripe_id: 'starter', projects_allowed: 1)
+    silver_plan = FactoryGirl.create(:plan, name: 'Silver', stripe_id: 'silver', projects_allowed: 3)
+
+    account.plan = starter_plan
+    account.projects << FactoryGirl.create(:project)
+    account.save
+
+    visit root_url
+    click_link 'Add Project'
+
+    within('.alert') do
+      message = "You have reached your plan's limit. You need to upgrade to add more projects."
+      expect(page).to have_content(message)
+    end
+
+    click_button 'choose_silver'
+
+    within('.alert') do
+      expect(page).to have_content('You have changed to the Silver plan.')
+    end
+
+    expect(page.current_url).to eq(new_project_url)
+  end
 end

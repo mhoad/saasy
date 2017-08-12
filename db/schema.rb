@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170804213542) do
+ActiveRecord::Schema.define(version: 20170812001117) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,6 +57,7 @@ ActiveRecord::Schema.define(version: 20170804213542) do
     t.integer "trial_period_days"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "projects_allowed"
     t.index ["stripe_id"], name: "index_plans_on_stripe_id"
   end
 

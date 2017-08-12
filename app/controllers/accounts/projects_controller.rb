@@ -7,7 +7,9 @@ module Accounts
   # separate projects for each of those instances.
   class ProjectsController < ApplicationController
     include AccountAuthentication
+    include AccountLimitations
     before_action :find_project, only: %i[edit update show destroy]
+    before_action :check_project_limit, only: %i[new create]
 
     def index
       @projects = current_account.projects

@@ -14,6 +14,7 @@
 #  trial_period_days :integer
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
+#  projects_allowed  :integer
 #
 # Indexes
 #
