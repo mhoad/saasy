@@ -12,9 +12,20 @@
         <td><%= plan.name %></td>
         <td><%= humanized_money_with_symbol(plan.amount_cents/100) %></td>
         <td>
-          <%= form_tag switch_plan_path, method: :put do %>
-            <%= hidden_field_tag :plan_id, plan.id %>
-            <%= submit_tag 'Switch', id: "choose_#{plan.name.underscore}" %>
+          <% if current_account.plan == plan %>
+            <button>Current plan</button>
+          <% else %>
+            <% if current_account.over_limit_for?(plan) %>
+              <%= form_tag switch_plan_path, method: :put do %>
+                <%= hidden_field_tag :plan_id, plan.id %>
+                <%= submit_tag 'Switch', id: "choose_#{plan.name.underscore}", disabled: true %>
+              <% end %>
+            <% else %>
+              <%= form_tag switch_plan_path, method: :put do %>
+                <%= hidden_field_tag :plan_id, plan.id %>
+                <%= submit_tag 'Switch', id: "choose_#{plan.name.underscore}" %>
+              <% end %>
+            <% end %>
           <% end %>
         </td>
       </tr>
