@@ -41,6 +41,7 @@ gem 'devise'
 gem 'money-rails'
 gem 'sidekiq'
 gem 'stripe', '~>3.2.0'
+gem 'stripe_event'
 
 group :development, :test do
   # Help identify and kill any N+1 queries

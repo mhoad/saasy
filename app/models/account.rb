@@ -45,6 +45,7 @@ class Account < ApplicationRecord
   has_many :invitations
   has_many :memberships
   has_many :users, through: :memberships
+  has_many :subscription_events
   belongs_to :plan, optional: true
 
   belongs_to :owner, class_name: 'User'

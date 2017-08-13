@@ -54,6 +54,7 @@ RSpec.describe Account, type: :model do
     it { expect(account).to belong_to(:owner) }
     it { expect(account).to have_many(:invitations) }
     it { expect(account).to have_many(:projects) }
+    it { expect(account).to have_many(:subscription_events) }
     it { expect(account).to belong_to(:plan) }
   end
 

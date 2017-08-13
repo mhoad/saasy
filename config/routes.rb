@@ -49,6 +49,8 @@ Rails.application.routes.draw do
     get 'users/cancel', to: 'devise/registrations#cancel', as: :cancel_user_registration
   end
 
+  mount StripeEvent::Engine, at: '/stripe-webhook'
+
   # Show a different root path if the user is viewing the application from an
   # account subdomain using a routing constraint.
   constraints(SubdomainRequired) do
