@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170812205600) do
+ActiveRecord::Schema.define(version: 20170813154539) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 20170812205600) do
     t.string "stripe_customer_id"
     t.bigint "plan_id"
     t.string "stripe_subscription_id"
+    t.string "stripe_subscription_status"
     t.index ["plan_id"], name: "index_accounts_on_plan_id"
     t.index ["subdomain"], name: "index_accounts_on_subdomain", unique: true
   end

@@ -4,7 +4,6 @@ require 'stripe'
 Stripe.api_key = Rails.application.secrets.stripe[:secret_key]
 
 StripeEvent.configure do |events|
-  # events.subscribe 'customer.subcription.', SubscriptionEvent.new
   events.subscribe 'customer.' do |event|
     SubscriptionEvent.process_webhook(event)
   end

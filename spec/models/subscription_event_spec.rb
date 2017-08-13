@@ -78,5 +78,30 @@ RSpec.describe SubscriptionEvent, type: :model do
       SubscriptionEvent.process_webhook(subscription_deleted_event)
       expect(account.subscription_events.count).to eq(1)
     end
+
+    it 'handles a customer.subscription.updated event with an active status' do
+      account.stripe_subscription_status = 'unpaid'
+      account.save
+
+      subscription_updated_event = {
+        id: 'stripe_event_id_002',
+        type: 'customer.subscription.updated',
+        data: {
+          'object': {
+            'id': 'sub_001',
+            'customer': 'cus_001',
+            'status': 'active'
+          }
+        }
+      }
+
+      SubscriptionEvent.process_webhook(subscription_updated_event)
+
+      expect(account.subscription_events.count).to eq(1)
+      event = account.subscription_events.first
+      expect(event.type).to eq('customer.subscription.updated')
+      account.reload
+      expect(account.stripe_subscription_status).to eq('active')
+    end
   end
 end

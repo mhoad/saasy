@@ -11,6 +11,7 @@
 #        user_password PATCH  /users/password(.:format)           devise/passwords#update
 #                      PUT    /users/password(.:format)           devise/passwords#update
 #                      POST   /users/password(.:format)           devise/passwords#create
+#         stripe_event        /stripe-webhook                     StripeEvent::Engine
 #         account_root GET    /                                   accounts/projects#index
 #          choose_plan GET    /account/choose_plan(.:format)      accounts/plans#choose
 #  account_choose_plan PATCH  /account/choose_plan(.:format)      accounts/plans#chosen
@@ -33,6 +34,9 @@
 #                 root GET    /                                   home#index
 #          new_account GET    /accounts/new(.:format)             accounts#new
 #             accounts POST   /accounts(.:format)                 accounts#create
+#
+# Routes for StripeEvent::Engine:
+#   root POST /           stripe_event/webhook#event
 #
 
 require 'constraints/subdomain_required'
