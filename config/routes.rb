@@ -75,6 +75,16 @@ Rails.application.routes.draw do
     end
   end
 
+  namespace :admin do
+    root to: 'accounts#index'
+
+    resources :accounts, only: %i[index show] do
+      collection do
+        post :search
+      end
+    end
+  end
+
   root to: 'home#index'
 
   get '/accounts/new', to: 'accounts#new', as: :new_account
