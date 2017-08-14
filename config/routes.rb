@@ -2,38 +2,43 @@
 
 # == Route Map
 #
-#               Prefix Verb   URI Pattern                         Controller#Action
-#     new_user_session GET    /users/sign_in(.:format)            devise/sessions#new
-#         user_session POST   /users/sign_in(.:format)            devise/sessions#create
-# destroy_user_session DELETE /users/sign_out(.:format)           devise/sessions#destroy
-#    new_user_password GET    /users/password/new(.:format)       devise/passwords#new
-#   edit_user_password GET    /users/password/edit(.:format)      devise/passwords#edit
-#        user_password PATCH  /users/password(.:format)           devise/passwords#update
-#                      PUT    /users/password(.:format)           devise/passwords#update
-#                      POST   /users/password(.:format)           devise/passwords#create
-#         stripe_event        /stripe-webhook                     StripeEvent::Engine
-#         account_root GET    /                                   accounts/projects#index
-#          choose_plan GET    /account/choose_plan(.:format)      accounts/plans#choose
-#  account_choose_plan PATCH  /account/choose_plan(.:format)      accounts/plans#chosen
-#  cancel_subscription DELETE /account/cancel(.:format)           accounts/plans#cancel
-#          switch_plan PUT    /account/switch_plan(.:format)      accounts/plans#switch
-#    accept_invitation GET    /invitations/:id/accept(.:format)   accounts/invitations#accept
-#  accepted_invitation PATCH  /invitations/:id/accepted(.:format) accounts/invitations#accepted
-#          invitations POST   /invitations(.:format)              accounts/invitations#create
-#       new_invitation GET    /invitations/new(.:format)          accounts/invitations#new
-#                users GET    /users(.:format)                    accounts/users#index
-#                 user DELETE /users/:id(.:format)                accounts/users#destroy
-#             projects GET    /projects(.:format)                 accounts/projects#index
-#                      POST   /projects(.:format)                 accounts/projects#create
-#          new_project GET    /projects/new(.:format)             accounts/projects#new
-#         edit_project GET    /projects/:id/edit(.:format)        accounts/projects#edit
-#              project GET    /projects/:id(.:format)             accounts/projects#show
-#                      PATCH  /projects/:id(.:format)             accounts/projects#update
-#                      PUT    /projects/:id(.:format)             accounts/projects#update
-#                      DELETE /projects/:id(.:format)             accounts/projects#destroy
-#                 root GET    /                                   home#index
-#          new_account GET    /accounts/new(.:format)             accounts#new
-#             accounts POST   /accounts(.:format)                 accounts#create
+#                Prefix Verb   URI Pattern                         Controller#Action
+#      new_user_session GET    /users/sign_in(.:format)            devise/sessions#new
+#          user_session POST   /users/sign_in(.:format)            devise/sessions#create
+#  destroy_user_session DELETE /users/sign_out(.:format)           devise/sessions#destroy
+#     new_user_password GET    /users/password/new(.:format)       devise/passwords#new
+#    edit_user_password GET    /users/password/edit(.:format)      devise/passwords#edit
+#         user_password PATCH  /users/password(.:format)           devise/passwords#update
+#                       PUT    /users/password(.:format)           devise/passwords#update
+#                       POST   /users/password(.:format)           devise/passwords#create
+#          stripe_event        /stripe-webhook                     StripeEvent::Engine
+#          account_root GET    /                                   accounts/projects#index
+#           choose_plan GET    /account/choose_plan(.:format)      accounts/plans#choose
+#   account_choose_plan PATCH  /account/choose_plan(.:format)      accounts/plans#chosen
+#   cancel_subscription DELETE /account/cancel(.:format)           accounts/plans#cancel
+#           switch_plan PUT    /account/switch_plan(.:format)      accounts/plans#switch
+#     accept_invitation GET    /invitations/:id/accept(.:format)   accounts/invitations#accept
+#   accepted_invitation PATCH  /invitations/:id/accepted(.:format) accounts/invitations#accepted
+#           invitations POST   /invitations(.:format)              accounts/invitations#create
+#        new_invitation GET    /invitations/new(.:format)          accounts/invitations#new
+#                 users GET    /users(.:format)                    accounts/users#index
+#                  user DELETE /users/:id(.:format)                accounts/users#destroy
+#              projects GET    /projects(.:format)                 accounts/projects#index
+#                       POST   /projects(.:format)                 accounts/projects#create
+#           new_project GET    /projects/new(.:format)             accounts/projects#new
+#          edit_project GET    /projects/:id/edit(.:format)        accounts/projects#edit
+#               project GET    /projects/:id(.:format)             accounts/projects#show
+#                       PATCH  /projects/:id(.:format)             accounts/projects#update
+#                       PUT    /projects/:id(.:format)             accounts/projects#update
+#                       DELETE /projects/:id(.:format)             accounts/projects#destroy
+#            admin_root GET    /admin(.:format)                    admin/accounts#index
+# search_admin_accounts POST   /admin/accounts/search(.:format)    admin/accounts#search
+# unpaid_admin_accounts GET    /admin/accounts/unpaid(.:format)    admin/accounts#unpaid
+#        admin_accounts GET    /admin/accounts(.:format)           admin/accounts#index
+#         admin_account GET    /admin/accounts/:id(.:format)       admin/accounts#show
+#                  root GET    /                                   home#index
+#           new_account GET    /accounts/new(.:format)             accounts#new
+#              accounts POST   /accounts(.:format)                 accounts#create
 #
 # Routes for StripeEvent::Engine:
 #   root POST /           stripe_event/webhook#event
@@ -81,6 +86,7 @@ Rails.application.routes.draw do
     resources :accounts, only: %i[index show] do
       collection do
         post :search
+        get :unpaid
       end
     end
   end

@@ -14,5 +14,9 @@ module Admin
     def show
       @account = Account.find(params[:id])
     end
+
+    def unpaid
+      @accounts = Account.where(stripe_subscription_status: 'unpaid')
+    end
   end
 end

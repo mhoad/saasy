@@ -1,0 +1,7 @@
+<h1>Unpaid Accounts</h1>
+
+<ul>
+  <% @accounts.each do |account| %>
+    <li><%= link_to account.name, [:admin, account] %></li>
+  <% end %>
+</ul>
